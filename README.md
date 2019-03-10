@@ -72,7 +72,7 @@ Resource group with a VNet and a minimum of two subnets:
 -	SUBNET_NGINX (contains N NGINX VMs and Azure Internal Load Balancer)
 
 NSGs to provide security:
--	Only allow private IP ranges to SUBNET_NGINX and service-tag of EventHub on service destination ports 443 (HTTPS), and 5671 (AMPQS).
+-	Only allow private IP ranges to SUBNET_NGINX and service-tag of Azure Storage & Azure SQL  on service destination ports 443 (HTTPS), and 5671 (AMPQS).
 -	NSGs are used to enhance network security in the load balancing and NGINX subnet tiers, exposing just those services needed, and restricting inbound traffic to private ranges only.
 -	Other VNet ranges can be added to inbound/outbound rules for increased security within the VNet (not shown below)
 
