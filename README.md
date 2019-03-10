@@ -82,6 +82,7 @@ Example of inbound NSG rules for SUBNET_NGINX
 
 Example of outbound NSG rules for SUBNET_NGINX
 
+![alt text](https://github.com/jgmitter/images/blob/master/outbound.png)
 
 Traffic flow
 
