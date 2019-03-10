@@ -1,4 +1,5 @@
 # Azure Storage and SQL DB Over ExpressRoute Private-Peering 
+
 # Accessing Azure Storage and SQL over ExpressRoute Private-Peering
 
 Currently, Microsoft Azure Storage and SQL DB services offer only public IP endpoints for device and
@@ -61,7 +62,7 @@ extend a private endpoint on-premise is on the roadmap called Private-link.
 The following diagram illustrates on-premise to cloud communication architecture secured via the
 NGINX private gateway hosted in Microsoft Azure. 
 
-![alt text](https://github.com/jgmitter/images/blob/master/VisioImage1.png)
+![alt text](https://github.com/jgmitter/images/blob/master/VisioImage2.png)
 
 
 
