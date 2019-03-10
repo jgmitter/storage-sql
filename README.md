@@ -1,22 +1,19 @@
-# Azure Storage and SQL Over ExpressRoute Private-Peering 
+# Azure Storage and SQL DB Over ExpressRoute Private-Peering 
 Accessing Azure Storage and SQL over ExpressRoute Private-Peering
 
-
-The Challenge – Private Endpoints for Azure Event Hub
-
-Currently, the Microsoft Azure Event Hub service offers only public IP endpoints for device and
-client connectivity.  While all communication with Azure Event Hub requires an encrypted TLS/SSL
-channel, there are customers who prefer device communication with the Event Hub service to occur
+Currently, Microsoft Azure Storage and SQL DB services offer only public IP endpoints for device and
+client connectivity.  While all communication with Azure Storage and SQL require an encrypted TLS/SSL
+channel, there are customers who prefer device communication with the Azure Storage and SQL service to occur
 over a private connection. 
 
-There are several important use cases where EventHub would benefit from offering a private
+There are several important use cases where Azure Storage and SQL DB would benefit from offering a private
 endpoint to devices and clients:
 
 ·       Private traffic though ExpressRoute (e.g., factory devices with secure private IPs that use MPLS for Cloud connectivity)
 ·       Private traffic through a VPN (e.g., remote sensors that use P2S for high security)
 ·       Devices requiring internal DNS resolution of a PaaS endpoint
 
-The Solution – NGINX as a Private Event Hub Gateway
+The Solution – NGINX as a Private Azure Storage and SQL DB Gateway
 
 NGINX (pronounced “engine-x”) is a free, open-source, high-performance HTTP server and reverse
 proxy.  It is well known for its high performance, stability, rich feature set, simple configuration, and
@@ -24,9 +21,9 @@ low resource consumption.
 
 Its applicability to solving this private gateway challenge is as follows:
 
-·       NGNIX is used as an HA scale-out tier that provides a private IP endpoint for Event Hub clients and devices.
+·       NGNIX is used as an HA scale-out tier that provides a private IP endpoint for Azure Storage and SQL DB clients and devices.
 ·       NGINX is deployed as VMs, VMSS, containers, or even within Azure Service Fabric to fit a variety of scale and automation needs.
-·       NGINX can be deployed as a scalable HA tier in the VNet that will offer private IP access to both IaaS and on-prem clients, then will securely forward traffic to the EventHub using ServiceEndpoints. More on this below.
+·       NGINX can be deployed as a scalable HA tier in the VNet that will offer private IP access to both IaaS and on-prem clients, then         will securely forward traffic to the EventHub using ServiceEndpoints. More on this below.
 
 TCP Load Balancing in NGINX
 
@@ -35,14 +32,17 @@ allows for TCP layer load balancing. TCP load balancing mode is configured in a 
 does not need to be configured with TLS certs or keys. In TCP mode, NGINX will forward the TLS
 handshake through to the target server, or upstream server, in the NGINX terminology.  For this
 architecture, we will use TCP load balancing in NGINX to keep the configuration simple and to
-allow secure forwarding for other TCP services, such as AMQPS, which EventHub uses for TLS
-authentication.
+allow secure forwarding for other TCP services.
 
 Other advantages include:
 
-·       TCP load balancing helps increase performance and lower cost, because NGINX does not need to perform DPI, or deep packet inspection, at the application layer.
-·       NGINX can still use an FQDN as an upstream server in the stream block and will resolve DNS against the FQDN before forwarding the connection. In the free, basic version of NGINX, DNS resolution will occur each time NGINX is started. 
-·       NGINX Plus can dynamically resolve the upstream FQDN with a variable TTL setting in TCP mode. It prevents dynamic changes of the underlying PaaS Public IP from requiring a restart of the NGINX service.  For a more robust design, you can consider upgrading to receive this functionality.
+·       TCP load balancing helps increase performance and lower cost, because NGINX does not need to perform DPI, or deep packet      
+        inspection, at the application layer.
+·       NGINX can still use an FQDN as an upstream server in the stream block and will resolve DNS against the FQDN before forwarding 
+        the connection. In the free, basic version of NGINX, DNS resolution will occur each time NGINX is started. 
+·       NGINX Plus can dynamically resolve the upstream FQDN with a variable TTL setting in TCP mode. It prevents dynamic changes of the 
+        underlying PaaS Public IP from requiring a restart of the NGINX service.  For a more robust design, you can consider upgrading 
+        to receive this functionality.
 
 The Essential Architecture
 
@@ -52,12 +52,11 @@ Azure fabric.  Service Endpoints allow you to secure your critical Azure service
 your virtual networks. Traffic from your VNet to the Azure PaaS service always remains on the
 Microsoft Azure backbone network.
 
-The key here is the ability to deploy Event Hub with Service Endpoints, while also making these
+The key here is the ability to deploy Azure Storage and SQL DB with Service Endpoints, while also making these
 private PaaS endpoints available over the ExpressRoute private peering. The current limitation of
 Service Endpoints is that it is not accessible to on-premise resources.  The NGINX Gateway solution
 detailed here provides a proxy solution to allow connectivity from on-premise.  A native solution to
 extend a private endpoint on-premise is on the roadmap called Private-link. 
-
 
 The following diagram illustrates on-premise to cloud communication architecture secured via the
 NGINX private gateway hosted in Microsoft Azure. 
