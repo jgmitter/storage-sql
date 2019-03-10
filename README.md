@@ -78,6 +78,7 @@ NSGs to provide security:
 
 Example of inbound NSG rules for SUBNET_NGINX
 
+![alt text](https://github.com/jgmitter/images/blob/master/inbound.png)
 
 Example of outbound NSG rules for SUBNET_NGINX
 
