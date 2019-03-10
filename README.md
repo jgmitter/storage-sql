@@ -1,5 +1,5 @@
 # Azure Storage and SQL DB Over ExpressRoute Private-Peering 
-Accessing Azure Storage and SQL over ExpressRoute Private-Peering
+#Accessing Azure Storage and SQL over ExpressRoute Private-Peering
 
 Currently, Microsoft Azure Storage and SQL DB services offer only public IP endpoints for device and
 client connectivity.  While all communication with Azure Storage and SQL require an encrypted TLS/SSL
