@@ -9,9 +9,9 @@ over a private connection.
 There are several important use cases where Azure Storage and SQL DB would benefit from offering a private
 endpoint to devices and clients:
 
-·       Private traffic though ExpressRoute (e.g., factory devices with secure private IPs that use MPLS for Cloud connectivity)
-·       Private traffic through a VPN (e.g., remote sensors that use P2S for high security)
-·       Devices requiring internal DNS resolution of a PaaS endpoint
+· Private traffic though ExpressRoute (e.g., factory devices with secure private IPs that use MPLS for Cloud connectivity)
+· Private traffic through a VPN (e.g., remote sensors that use P2S for high security)
+· Devices requiring internal DNS resolution of a PaaS endpoint
 
 The Solution – NGINX as a Private Azure Storage and SQL DB Gateway
 
