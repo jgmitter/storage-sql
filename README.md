@@ -1,5 +1,5 @@
 # Azure Storage and SQL DB Over ExpressRoute Private-Peering 
-#Accessing Azure Storage and SQL over ExpressRoute Private-Peering
+# Accessing Azure Storage and SQL over ExpressRoute Private-Peering
 
 Currently, Microsoft Azure Storage and SQL DB services offer only public IP endpoints for device and
 client connectivity.  While all communication with Azure Storage and SQL require an encrypted TLS/SSL
@@ -44,7 +44,7 @@ Other advantages include:
         underlying PaaS Public IP from requiring a restart of the NGINX service.  For a more robust design, you can consider upgrading 
         to receive this functionality.
 
-The Essential Architecture
+# The Essential Architecture
 
 Virtual Network (VNet) Service Endpoints extends your virtual network private address space, and
 the identity of your VNet, to multi-tenant Azure PaaS services over a special NAT tunnel in the
