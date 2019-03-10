@@ -61,7 +61,7 @@ extend a private endpoint on-premise is on the roadmap called Private-link.
 The following diagram illustrates on-premise to cloud communication architecture secured via the
 NGINX private gateway hosted in Microsoft Azure. 
 
-![alt text](https://github.com/jgmitter/images/blob/master/VisioImage.png)
+![alt text](https://github.com/jgmitter/images/blob/master/VisioImage1.png)
 
 
 
