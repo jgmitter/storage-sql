@@ -22,7 +22,7 @@ Its applicability to solving this private gateway challenge is as follows:
 
 -	NGNIX is used as an HA scale-out tier that provides a private IP endpoint for Azure Storage and SQL DB clients and devices.
 -	NGINX is deployed as VMs, VMSS, containers, or even within Azure Service Fabric to fit a variety of scale and automation needs.
--	NGINX can be deployed as a scalable HA tier in the VNet that will offer private IP access to both IaaS and on-prem clients, then         will securely forward traffic to the EventHub using ServiceEndpoints. More on this below.
+-	NGINX can be deployed as a scalable HA tier in the VNet that will offer private IP access to both IaaS and on-prem clients, then         will securely forward traffic to the Azure Storage, ADLS or SQL DB using ServiceEndpoints. More on this below.
 
 TCP Load Balancing in NGINX
 
