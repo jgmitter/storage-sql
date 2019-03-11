@@ -138,8 +138,8 @@ NGINX Tier
 -	Ultra – Backend pool of 4 F16s VMs, 16 cores and 32 GB of RAM each
 -	NGINX configs are set up to scale worker threads across multiple cores, use epoll kernel extensions, set connection pools again “ulimit –n,” allow instant, new connection handling, and have TCP_NOPUSH enabled.
 -	VMSS can also be used as a powerful way to harness auto-scale and workload agility, but this is not scoped here.
--	Service Endpoints Enabled on your NGINX subnet to service “EventHub.”
--	Since Service Endpoints is enabled on your NGINX subnet, you will need NSGs to allow the NGINX subnet to open connections to the NSG Service Tags of Azure Event Hub of your region – see NSG section above.
+-	Service Endpoints Enabled on your NGINX subnet to service “Storage and SQL”
+-	Since Service Endpoints is enabled on your NGINX subnet, you will need NSGs to allow the NGINX subnet to open connections to the NSG Service Tags of Azure Storage and SQL DB of your region – see NSG section above.
 -	Finally, if you are using a forced tunnel route, this is supported, because the ServiceEndpoint routes in the NGINX Subnet will be more specific that your default gateway route (0.0.0.0). Traffic between the NGINX subnet and Azure Storage, ADLS and/or SQL DB will flow directly over the private NAT tunnel in the Azure fabric. Enable Service Endpoint within NGINX Subnet (Shown as “nginxvmsssubnet” in the below example):
 
 
