@@ -154,5 +154,9 @@ https://azure.microsoft.com/en-us/features/storage-explorer/
 https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017
 
 
-Sample NGINX Configuration for Event Hub:  https://github.com/Microsoft/TCPStreamBroker
+Sample NGINX Configuration for Azure Storage, ADLS Gen2 and SQL DB: https://github.com/jgmitter/TCPStreamBroker/blob/master/NGINX-Storage-SQL
+Deploy a Lab Internal VMSS with NGINX:  https://github.com/jgmitter/nginx-vmss
+
+
+
 
