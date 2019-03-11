@@ -35,7 +35,7 @@ allow secure forwarding for other TCP services.
 
 Other advantages include:
 
--	TCP load balancing helps increase performance and lower cost, because NGINX does not need to perform DPI, or deep packet      
+-	TCP load balancing helps increase performance and lower cost because NGINX does not need to perform DPI or deep packet      
         inspection, at the application layer.
 -	NGINX can still use an FQDN as an upstream server in the stream block and will resolve DNS against the FQDN before forwarding 
         the connection. In the free, basic version of NGINX, DNS resolution will occur each time NGINX is started. 
@@ -89,8 +89,8 @@ Traffic flow
 -	On-Premise devices will resolve an FQDN for their Storage, ADLS, or SQL DB service, with the A record as the private IP of the 
         Azure Internal Load Balancer (ILB). The real FDQN need only be known to NGINX. This allows for internal/custom DNS applications.
 -	Contoso will connect to the ILB via ExpressRoute Private-Peering
--	NSGs applied on subnet will drop any packets that do not match either the private IP of the client device, or the destination  
-        service required (HTTPS/AMPQS). 
+-	NSGs applied on subnet will drop any packets that do not match either the private IP of the client device or the destination  
+        service required (HTTPS/SQL-DB). 
 -	The ILB will load balancing incoming HTTPS or SQL DB traffic across the NGINX tier.
 -	NGINX tier will proxy incoming TCP connections to Azure Storage, ADLS and/or SQL DB as an upstream server.
 -	Azure Storage, ADLS, and/or SQL DB will check its IP filer and allow the incoming packet if it is a match against the whitelist.         Else it will drop the packet.
