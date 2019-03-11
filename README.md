@@ -140,10 +140,12 @@ NGINX Tier
 -	VMSS can also be used as a powerful way to harness auto-scale and workload agility, but this is not scoped here.
 -	Service Endpoints Enabled on your NGINX subnet to service “EventHub.”
 -	Since Service Endpoints is enabled on your NGINX subnet, you will need NSGs to allow the NGINX subnet to open connections to the NSG Service Tags of Azure Event Hub of your region – see NSG section above.
--	Finally, if you are using a forced tunnel route, this is supported, because the ServiceEndpoint routes in the NGINX Subnet will be more specific that your default gateway route (0.0.0.0). Traffic between the NGINX subnet and Azure Storage, ADLS and/or SQL DB will flow directly over the private NAT tunnel in the Azure fabric. Enable Service Endpoint within NGINX Subnet (Shown as “SUBNET_PROXY” in the below example):
+-	Finally, if you are using a forced tunnel route, this is supported, because the ServiceEndpoint routes in the NGINX Subnet will be more specific that your default gateway route (0.0.0.0). Traffic between the NGINX subnet and Azure Storage, ADLS and/or SQL DB will flow directly over the private NAT tunnel in the Azure fabric. Enable Service Endpoint within NGINX Subnet (Shown as “nginxvmsssubnet” in the below example):
 
 
-Enable Service Endpoint within NGINX Subnet (Shown as “SUBNET_PROXY” in the below example):
+Enable Service Endpoint within NGINX Subnet (Shown as “nginxvmsssubnet” in the below example):
+
+![alt text](https://github.com/jgmitter/images/blob/master/subnet.png)
 
 Create a virtual network rule with Portal or Azure Resource Manager templates:
 
