@@ -147,23 +147,11 @@ Enable Service Endpoint within NGINX Subnet (Shown as “nginxvmsssubnet” in t
 
 ![alt text](https://github.com/jgmitter/images/blob/master/subnet.png)
 
-Create a virtual network rule with Portal or Azure Resource Manager templates:
+Testing of Storage ADLS Gen2 and SQL DB:
 
-
-Or via Template:
-
-
-https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-ip-filtering#creating-a-firewall-rule-with-azure-resource-manager-templates
-
-Testing of Event Hub Solution:
-
-For the lab environment, we tested the following sample application to generate data from the event generator to Event Hub:  https://github.com/Azure/azure-event-hubs/tree/master/samples/e2e/EventHubsCaptureEventGridDemo
-
-We deployed WindTurbineDataGenerator on a Windows 2016 Server with Visual Studio 2017 – A simple publisher that sends wind turbine data to an Event Hub.  You have the option of deploying the entire lab, or you can manually deploy your custom Event Hub from scratch without the other PAAS services and use WindTurbindDataGenerator to stream events to it.  Replace the two constant values below. Use the copied value for EventHubConnectionString. Use tubrinedata the EventHubName.
-
-
-
-
+Download the following tools to test the solution from a client perspective:
+https://azure.microsoft.com/en-us/features/storage-explorer/
+https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017
 
 
 Sample NGINX Configuration for Event Hub:  https://github.com/Microsoft/TCPStreamBroker
