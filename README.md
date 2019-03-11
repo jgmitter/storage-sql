@@ -107,6 +107,7 @@ Azure Storage, ADLS, and SQL DB
 
 For example, your local DNS can have a conditional policy, or split DNS policy,  to hand out  “10.1.3.50” as the A record for *.servicebus.windows.net, so that the fqdn request will continue to match the commonName value in the certificate, resulting in an error-free TLS handshake:
 
+![alt text](https://github.com/jgmitter/images/blob/master/certificate.png)
 
 ILB Tier
 -	Azure Internal Load Balancer is ideal to provide a single private endpoint which can be used for internal DNS resolution.
