@@ -114,8 +114,8 @@ ILB Tier
 -	Private FQDN of ILB can be anything customer needs
 -	ILB provides great scale out and 99.95% uptime for a solution
 -	ILB has BackEnd pool of “N” NGINX Ubuntu Servers (or use VMSS, not scoped here)
--	ILB will have two front-end rules: 443 for HTTPs, and 5671 for AMPQS
--	ILB uses two TCP probes for each load balancing rule: HTTPS, and AMPQS
+-	ILB will have two front-end rules: 443 for HTTPs, and 1433 for SQL DB
+-	ILB uses two TCP probes for each load balancing rule: HTTPS, and SQL DB
 -	The ILB Front-End IP should be a static IP and should originate from SUBNET_NGINX
 
 
@@ -132,10 +132,10 @@ NGINX Tier
 
 -	Can be deployed on RHEL, Debian, Ubuntu, or SuSE
 -	Four recommended VM tiers for production, scale UP paradigm (use VMSS for scale-out):
-        -	Low – Backend pool of 2 D2S_V3 VMs, 2 cores and 8 GB of RAM each
-        -	Medium – Backend pool of 3 D4S_v3 VMs, 4 cores and 16 GB of RAM each
-        -	High – Backend pool of 3 F8S VMs, 8 cores and 16 GB of RAM each
-        -	Ultra – Backend pool of 4 F16s VMs, 16 cores and 32 GB of RAM each
+-	Low – Backend pool of 2 D2S_V3 VMs, 2 cores and 8 GB of RAM each
+-	Medium – Backend pool of 3 D4S_v3 VMs, 4 cores and 16 GB of RAM each
+-	High – Backend pool of 3 F8S VMs, 8 cores and 16 GB of RAM each
+-	Ultra – Backend pool of 4 F16s VMs, 16 cores and 32 GB of RAM each
 -	NGINX configs are set up to scale worker threads across multiple cores, use epoll kernel extensions, set connection pools again “ulimit –n,” allow instant, new connection handling, and have TCP_NOPUSH enabled.
 -	VMSS can also be used as a powerful way to harness auto-scale and workload agility, but this is not scoped here.
 -	Service Endpoints Enabled on your NGINX subnet to service “EventHub.”
