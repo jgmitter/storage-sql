@@ -1,0 +1,162 @@
+###################################################################################
+##Example configuration file for NGINX 1.12.1 - Proxy for Azure Storage and SQL DB
+##Version 1.1 - 3.10.2019
+###################################################################################
+
+############################
+##Section 1: Global settings
+############################
+load_module /usr/lib/nginx/modules/ngx_stream_module.so;
+
+user  nginx;
+
+##Set 1 worker process per CPU core for better performance
+
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+##Set worker_connections based on ulimit -n
+##Enable epoll for scalable I/O event notification mechanism
+##Enable multi_accept to allow all new connections to be accepted at once
+
+events {
+    worker_connections  1024;
+    use epoll;
+    multi_accept on;
+}
+
+
+##############################
+##Section 2: HTTP settings
+##All settings left at default
+##############################
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+
+########################################################################
+##Section 3: TCP/UDP Load Balancing Settings for basic NGINX
+##Enable stream block for SSL/TLS Passthrough and TCP load balancing.
+##This allows Azure Storage to complete the TLS handshake directly with client.
+##Uncomment Section 4 below if using NGINX Plus for Dynamic DNS resolution, and remove Section 3
+########################################################################
+
+stream {
+
+   tcp_nodelay on;
+
+    map $ssl_preread_server_name $name {
+        adlsnginx.blob.core.windows.net azure_blob;
+        adlsnginx.file.core.windows.net azure_file;
+        adlsnginx.table.core.windows.net azure_table;
+        adlsnginx.queue.core.windows.net azure_queue;
+    }
+
+     upstream sql {
+        server gbbtestserver.database.windows.net:1433;
+   }
+
+    upstream azure_blob {
+        server adlsnginx.blob.core.windows.net:443;
+    }
+
+    upstream azure_file {
+        server adlsnginx.file.core.windows.net:443;
+    }
+
+    upstream azure_table {
+        server adlsnginx.table.core.windows.net:443;
+    }
+
+    upstream azure_queue {
+        server adlsnginx.queue.core.windows.net:443;
+    }
+
+    server {
+        listen 443;
+        proxy_pass $name;
+        ssl_preread on;
+    }
+
+       server {
+      listen 1433;
+      proxy_pass sql;
+      proxy_connect_timeout 1s; # detect failure quickly
+    }
+}
+
+########################################################################
+##Section 4: TCP/UDP Load Balancing Settings for NGINX PLUS
+##Replace Section 3 with this section if using NGINX PLUS which supports Dynamic DNS on upstream server
+##Example is for blob service but other services can be added by duplicating the config per service
+###resolve
+###monitors changes of the IP addresses that correspond to a domain name of the server, and automatically modifies the upstream configuration without the need of restarting nginx. The server group must reside in the shared memory.
+###In order for this parameter to work, the resolver directive must be specified in the stream block. Example:
+########################################################################
+
+#stream {
+#
+##TTL is set to 10 seconds against Azure's Recursive Resolver 
+#   resolver 168.63.129.16 valid=10s;
+#        
+##Enable tcp_nodelay to turn off Nagle's algorithm - this is recommended 
+#   tcp_nodelay on;
+#
+#    map $ssl_preread_server_name $name {
+#       adlsnginx.blob.core.windows.net azure_blob;
+#       adlsnginx.file.core.windows.net azure_file;
+#       adlsnginx.table.core.windows.net azure_table;
+#       adlsnginx.queue.core.windows.net azure_queue;
+#   }
+#
+#     upstream sql {
+#        server gbbtestserver.database.windows.net:1433; resolve;
+#   }
+#
+#    upstream azure_blob {
+#        server adlsnginx.blob.core.windows.net:443; resolve;
+#    }
+#
+#   upstream azure_file {
+#        server adlsnginx.file.core.windows.net:443; resolve;
+#    }
+#
+#    upstream azure_table {
+#        server adlsnginx.table.core.windows.net:443; resolve;
+#    }
+#
+#    upstream azure_queue {
+#        server adlsnginx.queue.core.windows.net:443; resolve;
+#    }
+#
+#    server {
+#        listen 443;
+#        proxy_pass $name;
+#        ssl_preread on;
+#    }
+#    server {
+#       listen 1433;
+#       proxy_pass sql;
+#       proxy_connect_timeout 1s; # detect failure quickly
+#    }
+#}       
+
