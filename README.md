@@ -121,12 +121,11 @@ ILB Tier
 
 Load-balancing rules:
 
-
-
-
+![alt text](https://github.com/jgmitter/images/blob/master/lbrules.png)
 
 Load-balancing probes:
 
+![alt text](https://github.com/jgmitter/images/blob/master/probes.png)
 
 
 NGINX Tier
