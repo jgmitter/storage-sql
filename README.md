@@ -71,7 +71,7 @@ Resource group with a VNet and a minimum of two subnets:
 -	SUBNET_NGINX (contains N NGINX VMs and Azure Internal Load Balancer)
 
 NSGs to provide security:
--	Only allow private IP ranges to SUBNET_NGINX and service-tag of Azure Storage & Azure SQL  on service destination ports 443 (HTTPS), and 5671 (AMPQS).
+-	Only allow private IP ranges to SUBNET_NGINX and service-tag of Azure Storage, ADLS & Azure SQL on service destination ports 443 (HTTPS), and 1433 (SQL).
 -	NSGs are used to enhance network security in the load balancing and NGINX subnet tiers, exposing just those services needed, and restricting inbound traffic to private ranges only.
 -	Other VNet ranges can be added to inbound/outbound rules for increased security within the VNet (not shown below)
 
@@ -86,12 +86,14 @@ Example of outbound NSG rules for SUBNET_NGINX
 
 Traffic flow
 
--	On-Premise devices will resolve an FQDN for their EventHub service, with the A record as the private IP of the Azure Internal Load Balancer (ILB). The real FDQN need only be known to NGINX. This allows for internal/custom DNS applications.
+-	On-Premise devices will resolve an FQDN for their Storage, ADLS, or SQL DB service, with the A record as the private IP of the 
+        Azure Internal Load Balancer (ILB). The real FDQN need only be known to NGINX. This allows for internal/custom DNS applications.
 -	Contoso will connect to the ILB via ExpressRoute Private-Peering
--	NSGs applied on subnet will drop any packets that do not match either the private IP of the client device, or the destination service required (HTTPS/AMPQS). 
--	The ILB will load balancing incoming HTTPS or AMQPS traffic across the NGINX tier.
--	NGINX tier will proxy incoming TCP connections to the Event Hub as an upstream server.
--	The Event Hub will check its IP filer and allow the incoming packet if it is a match against the whitelist. Else it will drop the packet.
+-	NSGs applied on subnet will drop any packets that do not match either the private IP of the client device, or the destination  
+        service required (HTTPS/AMPQS). 
+-	The ILB will load balancing incoming HTTPS or SQL DB traffic across the NGINX tier.
+-	NGINX tier will proxy incoming TCP connections to Azure Storage, ADLS and/or SQL DB as an upstream server.
+-	Azure Storage, ADLS, and/or SQL DB will check its IP filer and allow the incoming packet if it is a match against the whitelist.         Else it will drop the packet.
 -	The response will flow back on the open TCP connection, which will be statefully mapped back to the NIC of the NGINX server that owns that connection flow.
 
 Azure Event Hub
