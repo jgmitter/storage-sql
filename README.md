@@ -1,4 +1,4 @@
-# Azure Storage and SQL DB Over ExpressRoute Private-Peering 
+# Azure Storage, ADLS Gen2 and SQL DB Over ExpressRoute Private-Peering 
 
 Currently, Microsoft Azure Storage and SQL DB services offer only public IP endpoints for device and
 client connectivity.  While all communication with Azure Storage and SQL require an encrypted TLS/SSL
@@ -12,7 +12,7 @@ endpoint to devices and clients:
 -	Private traffic through a VPN (e.g., remote sensors that use P2S for high security)
 -	Devices requiring internal DNS resolution of a PaaS endpoint
 
-# The Solution – NGINX as a Private Azure Storage and SQL DB Gateway
+# The Solution – NGINX as a Private Azure Storage, ADLS Gen2 and SQL DB Gateway
 
 NGINX (pronounced “engine-x”) is a free, open-source, high-performance HTTP server and reverse
 proxy.  It is well known for its high performance, stability, rich feature set, simple configuration, and
