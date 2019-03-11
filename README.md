@@ -154,8 +154,11 @@ https://azure.microsoft.com/en-us/features/storage-explorer/
 https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-2017
 
 
-Sample NGINX Configuration for Azure Storage, ADLS Gen2 and SQL DB: https://github.com/jgmitter/TCPStreamBroker/blob/master/NGINX-Storage-SQL
+Sample NGINX Configuration for Azure Storage, ADLS Gen2 and SQL DB: https://github.com/jgmitter/storage-sql/blob/master/NGINX-Storage-SQL.conf.txt
+
 A VMSS for deploying NGINX as a TCP Stream Broker
+
+Deploy a Lab Internal VMSS with NGINX:  https://github.com/jgmitter/nginx-vmss
 
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fjgmitter%2Fnginx-vmss%2Fmaster%2Fazuredeploy.json" target="_blank">
@@ -168,7 +171,6 @@ ssh to your jumpbox, than:
 
 ssh -p 50000 {username}@{loadbalancer-ip-address} to each NGINX VM to update its NGINX.conf
 
-Deploy a Lab Internal VMSS with NGINX:  https://github.com/jgmitter/nginx-vmss
 
 
 
